@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Crime_rate_Vis</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- <section id="intro"><h1>Crime Rate in America</h1></section> -->
+<html>
+<body>
+<h1 style="color: #483D8B;font-family:Candara;">Crime Rate in America (2015-2016)</h1>	
+  <table width="100%" border="0">
+    
+   
+  <tr>
+    <td> 
+      <h2 style="text-align:left; padding-left: 20px; color: #483D8B;font-family:Candara; margin-top:0">Directions</h2>
+      <ol style="text-align:left; padding-bottom: 0px; font-family:Candara;font-size:18px;">
+  <li><strong>Select the year to view: </strong> Aggregated crime rate heat map. </li>
+  <li><strong>Hover state:</strong> Hover to view aggregated rate in the state.</li>
+  <li><strong>Select state level detail:</strong> Select the Explore button. Select a state to view streamgraph.</li>
+    <li><strong>For comparing two states:</strong> Select the Comparison Button. Press State 1 button and select a state on the map. Similar steps for state 2</li>
+</ol> 
+      <div id="map"></div> </td>
+    <td style="margin-top:-5px;"> 
+      <input type="radio" name="rad" id="myCheckbox">
+      <label for="myCheckbox"  style="font-size: 21px; font-weight: bold;font-family:Candara;">Compare</label>
+         <input type="radio" name="rad" id="Explore">
+      <label for="Explore" style="font-size: 21px; font-weight: bold;font-family:Candara;">Explore</label> <br> <br>
+     
+      <div id="butn" style="text-align:left;">
+<!--       <input type="button" name="st" id="state1"> -->
+       <button id ="btn2" type ="button" style="background-color: white; font-family:Candara;" onclick="update(2)">State One</button>
+        <label type ="button" id="st2" style="opacity: 0;font-family:Candara;font-size:18px;">: State1</label>
+        <br> <br>
+        <button id="btn1" type="button" style="background-color: white; font-family:Candara;" onclick="update(1)">State Two</button> 
+         <label id="st1" style="opacity: 0;font-family:Candara;font-size:18px;">: State2</label> <br> <br>
+      </div>
+      <div class="container">
+      <div class="stream"> </div>
+<!-- <hr width="80%" size="10" align="center" style="padding-top: -10px; position: relative"> -->
+    <div class="chart"></div>
+      </dv> 
+    </td>
+  </tr>
+    <tr>
+            
+      <td>
+        
+        <div style="text-align:left;">
+          
+          <label style="font-size: 21px; font-weight: bold;font-family:Candara;"> Select Year: </label> &nbsp;
+        <input type="radio" name="rad" id="year1">
+      <label for="year1"  style="font-size: 19px; font-weight: italic;font-family:Candara;">2015</label>
+         <input type="radio" name="rad" id="year2">
+      <label for="year2" style="font-size: 19px; font-weight: italic;font-family:Candara;">2016</label> <br>
+           </div>
+        
+        <p class="cr">Crime Magnitude</p>
+         
+            <label style="display: inline; position:relative; padding-left: 190px;">1200</label> 
+        
+        <label style="display: inline; padding-left: 200px">4400</label> 
+        <div class="cont">
+        <div class = "cscale"> </div>
+        <div class = "cscale2"> </div>
+        </div>
+      </td>
+      
+      <td>
+        <ul style="list-style-type: none; margin-top: 0;padding: 0; text-align: left;font-family:Candara;font-size:18px">
+
+  <li><svg width="40" height="15">
+  <rect width="30" height="20" style="fill: #483D8B; float: left; padding-bottom:-10px;" />
+</svg> <strong> RRD: &nbsp;</strong>Rape</li>
+  <li><svg width="40" height="15">
+  <rect width="30" height="20" style="fill: #FF4500; float: left; padding-bottom:-10px;" />
+</svg><strong>ROB:&nbsp;</strong> Robbery</li>
+  <li><svg width="40" height="15">
+  <rect width="30" height="20" style="fill: #FFFF00; float: left; padding-bottom:-10px;" />
+</svg><strong>AGA:&nbsp;</strong> Aggravated assault</li>
+  <li><svg width="40" height="15">
+  <rect width="30" height="20" style="fill: #FF1493; float: left; padding-bottom:-10px;" />
+</svg><strong>BUR:&nbsp;</strong> Burglary</li>
+<!--   <li><svg width="40" height="15"> -->
+<!--   <rect width="30" height="20" style="fill: blue; float: left; padding-bottom:-10px;" /> -->
+<!-- </svg><strong>LAT:&nbsp; </strong>  Larceny-theft</li> -->
+  <li><svg width="40" height="15">
+  <rect width="30" height="20" style="fill: #8B4513; float: left; padding-bottom:-10px;" />
+</svg><strong>MVT:&nbsp;</strong> Motor vehicle theft</li>
+</ul>
+      
+        </td>
+    
+    </tr>
+  
+      
+  
+</table>
+
+
+
+ 
+
+
+<div id="chartTwo"></div>
+
+
+
+<div id="footer">
+  
+  
+<!-- 	<p>Sources: Brewery data from the
+		<a href="https://www.brewersassociation.org/statistics/by-state/" target="_blank">Brewers' Association - 2015</a>
+	</p> -->
+</div>
+
+
+</body>
+
+</html>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js'></script>
+<script src='https://d3js.org/topojson.v1.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js'></script>
+<script src='https://d3js.org/queue.v1.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
